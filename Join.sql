@@ -90,6 +90,52 @@ SELECT E.Name, D.DepartmentName FROM Employee E CROSS JOIN Department D;
 -- 25. Create a report showing all possible employee-department pairings.
 SELECT E.EmployeeName,D.DepartmentName FROM Employee E CROSS JOIN Department D;
 
+
+
+-- SELF JOIN Questions 
+
+-- 26. Retrieve pairs of employees who work in the same department. 
+SELECT E1.Name AS Employee1, E2.Name AS Employee2, E1.DepartmentID FROM Employee E1 
+JOIN Employee E2 ON E1.DepartmentID = E2.DepartmentID AND E1.EmployeeID < E2.EmployeeID;
+
+-- 27. Find the names of employees along with the names of their colleagues in the same department. 
+SELECT E1.Name AS Employee, E2.Name AS Colleague, E1.DepartmentID FROM Employee E1
+JOIN Employee E2 ON E1.DepartmentID = E2.DepartmentID AND E1.EmployeeID != E2.EmployeeID;
+
+-- 28. List all employees and their colleagues, ensuring that no employee is paired with themselves. 
+SELECT E1.Name AS Employee, E2.Name AS Colleague FROM Employee E1
+JOIN Employee E2 ON E1.EmployeeID != E2.EmployeeID;
+
+-- 29. Find employees who work in the same department as 'Alice'. 
+SELECT E1.Name FROM Employee E1
+JOIN Employee E2 ON E1.DepartmentID = E2.DepartmentID WHERE E2.Name = 'Amit Sharma'AND E1.Name != 'Amit Sharma';
+
+-- 30. Retrieve a list of employee pairs who are in the same department, sorted by department name. 
+
+
+-- 31. LIST MANAGER PAIR WORKING IN SAME DEPARMENT 
+SELECT E1.NAME AS EMPLOYEE_NAME, E2.NAME AS MANAGER, E1.DEPARTMENTID FROM EMPLOYEE E1 JOIN EMPLOYEE E2 ON E1.MANAGERid;
+
+-- 32. FIND EMPloyee WHO REPORT TO A MANAGE IN DEFrent DEPARTMENT 
+SELECT E.Name AS Employee, M.Name AS Manager,E.DepartmentID AS EmployeeDept, M.DepartmentID AS ManagerDept
+FROM Employee E JOIN Employee M ON E.ManagerID = M.EmployeeID WHERE E.DepartmentID <> M.DepartmentID;
+
+-- 33. LIST WHO HAVE SAME SALARY AS THERE MANAGER 
+SELECT E.Name AS Employee, M.Name AS Manager, E.Salary AS EmployeeSalary, M.Salary AS ManagerSalary
+FROM Employee E JOIN Employee M ON E.ManagerID = M.EmployeeID WHERE E.Salary = M.Salary;
+
+-- 34. LIST EMP WHOS SALARY IS IS MORE THEN THERE MANAGER
+SELECT E.Name AS Employee, M.Name AS Manager, E.Salary AS EmployeeSalary, M.Salary AS ManagerSalary
+FROM Employee E JOIN Employee M ON E.ManagerID = M.EmployeeID WHERE E.Salary > M.Salary;
+
+-- 35. LIST EMP AND MANGER WHO HAVE SAME NAME STARES WITH SAME LATER 
+
+
+-- 36. LIST ALL MANGER WHO DON'T REPORT TO ANY MANAGER  
+SELECT DISTINCT M.Name AS Manager FROM Employee E JOIN Employee M ON E.ManagerID = M.EmployeeID
+WHERE M.ManagerID IS NULL;
+
+
 Select * from employee;
 Select * from Department;
 
